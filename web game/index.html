@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <!-- This line makes the page fit phone screens -->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Typing Challenge Game</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <!-- ========== HOME SCREEN ========== -->
+  <section id="home-screen" class="screen">
+    <h1>⌨️ Typing Challenge</h1>
+    <p class="subtitle">Choose a game mode and start typing!</p>
+
+    <div class="card-grid">
+      <div class="card">
+        <h2>🫧 Bubbles</h2>
+        <p>Letters float up the screen. Press the matching key before a bubble escapes. Six escapes and it's game over.</p>
+        <button id="home-bubbles-btn" class="btn btn-primary">Start</button>
+      </div>
+
+      <div class="card">
+        <h2>🧲 KeyMagnet</h2>
+        <p>A target key is shown. Press it on your keyboard as fast as you can before time runs out.</p>
+        <button id="home-keymagnet-btn" class="btn btn-primary">Start</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== BUBBLES SCREEN ========== -->
+  <section id="bubbles-screen" class="screen hidden">
+    <div class="top-bar">
+      <h2>🫧 Bubbles</h2>
+      <button id="bubbles-home-btn" class="btn">⬅ Home</button>
+    </div>
+
+    <details class="how-to">
+      <summary>How to play</summary>
+      <p>
+        Letters float up from the bottom in bubbles. Press the matching letter
+        on your keyboard (or tap the bubble) before it reaches the top.
+        A correct pop gives +10 points. A wrong key costs 5 points.
+        Six escaped bubbles ends the game. Pop the goal number of bubbles to win.
+        Every 5 pops the level goes up and the bubbles speed up.
+      </p>
+    </details>
+
+    <div class="status-bar">
+      <div>Score: <strong id="bubbles-score">0</strong></div>
+      <div>Popped: <strong id="bubbles-popped">0</strong></div>
+      <div>Misses: <strong id="bubbles-misses">0</strong></div>
+      <div>Level: <strong id="bubbles-level">1</strong></div>
+      <div>Difficulty: <strong id="bubbles-difficulty">Easy</strong></div>
+    </div>
+
+    <p id="bubbles-message" class="message">Choose a difficulty and press Start.</p>
+
+    <div class="option-row">
+      <strong>Difficulty:</strong>
+      <button class="btn bubble-diff selected" data-level="easy">Easy</button>
+      <button class="btn bubble-diff" data-level="medium">Medium</button>
+      <button class="btn bubble-diff" data-level="hard">Hard</button>
+    </div>
+
+    <!-- The bubbles are created inside this box by bubbles.js -->
+    <div id="bubble-area" class="bubble-area"></div>
+
+    <div class="controls">
+      <button id="bubbles-start-btn" class="btn btn-primary">▶ Start</button>
+      <button id="bubbles-restart-btn" class="btn">🔄 Restart</button>
+      <button id="bubbles-reset-btn" class="btn btn-danger">⏹ Reset</button>
+    </div>
+  </section>
+
+  <!-- ========== KEYMAGNET SCREEN ========== -->
+  <section id="keymagnet-screen" class="screen hidden">
+    <div class="top-bar">
+      <h2>🧲 KeyMagnet</h2>
+      <button id="keymagnet-home-btn" class="btn">⬅ Home</button>
+    </div>
+
+    <details class="how-to">
+      <summary>How to play</summary>
+      <p>
+        The big box shows the target key. Press that key on your keyboard
+        (or tap it on screen). A correct key gives +10 points. Wrong keys are
+        counted and shown in red. The game ends when the timer reaches zero.
+        Easy = 60 seconds, Medium = 45 seconds, Hard = 30 seconds.
+        The key set decides which letters you practise.
+      </p>
+    </details>
+
+    <div class="status-bar">
+      <div>Score: <strong id="km-score">0</strong></div>
+      <div>Time left: <strong id="km-time">60</strong>s</div>
+      <div>Correct: <strong id="km-correct">0</strong></div>
+      <div>Wrong: <strong id="km-wrong">0</strong></div>
+      <div>Avg time: <strong id="km-avg">0.00</strong>s</div>
+      <div>Difficulty: <strong id="km-difficulty">Easy</strong></div>
+      <div>Keys: <strong id="km-set">Home Row (Practice)</strong></div>
+    </div>
+
+    <p id="km-message" class="message">Choose options and press Start.</p>
+
+    <div class="option-row">
+      <strong>Difficulty:</strong>
+      <button class="btn km-diff selected" data-level="easy">Easy</button>
+      <button class="btn km-diff" data-level="medium">Medium</button>
+      <button class="btn km-diff" data-level="hard">Hard</button>
+    </div>
+
+    <div class="option-row">
+      <strong>Key set:</strong>
+      <button class="btn km-set selected" data-set="home">Home Row (Practice)</button>
+      <button class="btn km-set" data-set="top">Top Row</button>
+      <button class="btn km-set" data-set="all">All Letters</button>
+    </div>
+
+    <!-- The target key is shown here -->
+    <div id="km-target" class="target-box">-</div>
+
+    <!-- The on-screen keyboard is created by keymagnet.js -->
+    <div id="km-keyboard" class="keyboard"></div>
+
+    <div class="controls">
+      <button id="km-start-btn" class="btn btn-primary">▶ Start</button>
+      <button id="km-restart-btn" class="btn">🔄 Restart</button>
+      <button id="km-reset-btn" class="btn btn-danger">⏹ Reset</button>
+    </div>
+  </section>
+
+  <!-- ========== RESULTS SCREEN ========== -->
+  <section id="results-screen" class="screen hidden">
+    <h2 id="results-title">Results</h2>
+    <div id="results-list"></div>
+    <div class="controls">
+      <button id="results-again-btn" class="btn btn-primary">🔁 Play Again</button>
+      <button id="results-home-btn" class="btn">🏠 Home</button>
+    </div>
+  </section>
+
+  <!-- JavaScript files. main.js MUST be loaded first. -->
+  <script src="main.js"></script>
+  <script src="bubbles.js"></script>
+  <script src="keymagnet.js"></script>
+</body>
+</html>
